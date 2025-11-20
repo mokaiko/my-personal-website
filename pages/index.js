@@ -47,6 +47,14 @@ This NFT certifies foundational expertise in Web3 development and commemorates p
       nft_10years_title: "Ten Years Of Ethereum",
       nft_10years_desc: `A Decade Forging Legends, Code Transforming the World.
 This NFT bears witness to the holder's journey of growth alongside Ethereum, serving as a profound tribute to blockchain pioneers and symbolizing the relentless pursuit of a decentralized future.`,
+      project_nitchugakuin_title: "Nitchu Gakuin Digital Collections",
+      project_nitchugakuin_desc: `The "Nitchu Gakuin Digital Collections" project aims to provide a sustainable and low-cost platform for issuing, claiming, and airdropping digital collectibles for the school and its alumni.
+      Built on Ethereum Layer 2 network Optimism (with extremely low gas fees), it implements an upgradable contract system based on the ERC-1155 standard.
+      ✓ Supports creation of multiple digital collectible collections
+      ✓ Each collection can correspond to multiple quantities (1155 standard, NFT, SFT)
+      ✓ Supports SVG images stored directly on-chain without external links
+      ✓ Supports whitelist, airdrop, and free claims
+      ✓ Upgradable (UUPS pattern)`,
       project_volcano_title: "Volcano NFT",
       project_volcano_desc: `Issued unique volcano-themed NFTs via a smart contract called VolcanoNFT. 
       Users can mint NFTs with randomly generated color schemes by paying in ETH. 
@@ -105,6 +113,14 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       nft_10years_title: "以太坊十周年纪念",
       nft_10years_desc: `十年铸就传奇，代码改变世界。
 此NFT见证持有者与以太坊共同成长的旅程，是对区块链先驱者的崇高致敬，象征着对去中心化未来的不懈追求。`,
+      project_nitchugakuin_title: "日中学院数字藏品集合",
+      project_nitchugakuin_desc: `“日中学院数字藏品”项目旨在为学校及校友提供一个可持续、低成本的数字藏品发行、领取与空投平台。
+基于以太坊二层网络的 Optimism（极低的Gas费），实现 ERC-1155 标准的可升级合约系统。
+✓ 支持创建多种数字藏品（Collection）
+✓ 每个藏品可以对应多个数量（1155标准、NFT、SFT）
+✓ 支持 SVG 图片直接存储上链，无需外部链接
+✓ 支持白名单、空投、免费领取
+✓ 可升级（UUPS 模式）`,
       project_volcano_title: "火山 NFT",
       project_volcano_desc: `通过 VolcanoNFT 智能合约发行独特的火山主题 NFT。
       用户可以通过支付 ETH 来铸造具有随机生成色彩方案的 NFT。
@@ -163,6 +179,14 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       nft_10years_title: "イーサリアム十周年記念",
       nft_10years_desc: `十年にわたって伝説を築き、コードが世界を変える。
 この NFT は、保有者がイーサリアムと共に成長してきた旅路を証するものであり、ブロックチェーンの先駆者たちへの崇高な賛辞である。同時に、分散型未来への不断の追求を象徴する。`,
+      project_nitchugakuin_title: "日中学院デジタルコレクション",
+      project_nitchugakuin_desc: `「日中学院デジタルコレクション」プロジェクトは、学校およびその卒業生向けに、デジタルコレクティブルの発行、請求、エアドロップのための持続可能で低コストなプラットフォームを提供することを目的としている。
+      イーサリアムのレイヤー2ネットワークである Optimism（非常に低いガス料金）上に構築されており、ERC-1155 標準に基づくアップグレード可能なコントラクトシステムを実装している。
+      ✓ 複数のデジタルコレクティブルコレクションの作成をサポート
+      ✓ 各コレクションは複数の数量に対応可能（1155 標準、NFT、SFT）
+      ✓ 外部リンクを使用せず、SVG 画像を直接オンチェーンに保存することをサポート
+      ✓ ホワイトリスト、エアドロップ、無料請求をサポート
+      ✓ アップグレード可能（UUPS パターン）`,
       project_volcano_title: "火山 NFT",
       project_volcano_desc: `「VolcanoNFT」というスマートコントラクトにより、火山をテーマにした独自の NFT を発行した。
       ユーザーは ETH を支払うことで、ランダムな色合いの火山画像を含む NFT をミント可能である。
@@ -598,6 +622,30 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
             {currentContent.projects}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+              <h4 className="text-xl font-medium mb-2">
+                {currentContent.project_nitchugakuin_title}
+              </h4>
+              <p className="text-gray-600 mb-4 whitespace-pre-line">
+                {currentContent.project_nitchugakuin_desc}
+              </p>
+              <div className="space-x-6">
+                {" "}
+                {/* 添加水平间距 */}
+                <a
+                  href="https://github.com/mokaiko/nitchu-gakuin-collections"
+                  className="text-blue-600 hover:underline"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://opensea.io/collection/0x9d291c7a50a3bf0980e732890177fd4e0998e13a"
+                  className="text-blue-600 hover:underline"
+                >
+                  {currentContent.viewNFT}
+                </a>
+              </div>
+            </div>
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <h4 className="text-xl font-medium mb-2">
                 {currentContent.project_volcano_title}
