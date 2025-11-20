@@ -50,11 +50,11 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_nitchugakuin_title: "Nitchu Gakuin Digital Collections",
       project_nitchugakuin_desc: `The "Nitchu Gakuin Digital Collections" project aims to provide a sustainable and low-cost platform for issuing, claiming, and airdropping digital collectibles for the school and its alumni.
       Built on Ethereum Layer 2 network Optimism (with extremely low gas fees), it implements an upgradable contract system based on the ERC-1155 standard.
-      ✓ Supports creation of multiple digital collectible collections
-      ✓ Each collection can correspond to multiple quantities (1155 standard, NFT, SFT)
-      ✓ Supports SVG images stored directly on-chain without external links
-      ✓ Supports whitelist, airdrop, and free claims
-      ✓ Upgradable (UUPS pattern)`,
+      ・Supports creation of multiple digital collectible collections
+      ・Each collection can correspond to multiple quantities (1155 standard, NFT, SFT)
+      ・Supports SVG images stored directly on-chain without external links
+      ・Supports whitelist, airdrop, and free claims
+      ・Upgradable (UUPS pattern)`,
       project_volcano_title: "Volcano NFT",
       project_volcano_desc: `Issued unique volcano-themed NFTs via a smart contract called VolcanoNFT. 
       Users can mint NFTs with randomly generated color schemes by paying in ETH. 
@@ -116,11 +116,11 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_nitchugakuin_title: "日中学院数字藏品集合",
       project_nitchugakuin_desc: `“日中学院数字藏品”项目旨在为学校及校友提供一个可持续、低成本的数字藏品发行、领取与空投平台。
 基于以太坊二层网络的 Optimism（极低的Gas费），实现 ERC-1155 标准的可升级合约系统。
-✓ 支持创建多种数字藏品（Collection）
-✓ 每个藏品可以对应多个数量（1155标准、NFT、SFT）
-✓ 支持 SVG 图片直接存储上链，无需外部链接
-✓ 支持白名单、空投、免费领取
-✓ 可升级（UUPS 模式）`,
+・支持创建多种数字藏品（Collection）
+・每个藏品可以对应多个数量（1155标准、NFT、SFT）
+・支持 SVG 图片直接存储上链，无需外部链接
+・支持白名单、空投、免费领取
+・可升级（UUPS 模式）`,
       project_volcano_title: "火山 NFT",
       project_volcano_desc: `通过 VolcanoNFT 智能合约发行独特的火山主题 NFT。
       用户可以通过支付 ETH 来铸造具有随机生成色彩方案的 NFT。
@@ -182,11 +182,11 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_nitchugakuin_title: "日中学院デジタルコレクション",
       project_nitchugakuin_desc: `「日中学院デジタルコレクション」プロジェクトは、学校およびその卒業生向けに、デジタルコレクティブルの発行、請求、エアドロップのための持続可能で低コストなプラットフォームを提供することを目的としている。
       イーサリアムのレイヤー2ネットワークである Optimism（非常に低いガス料金）上に構築されており、ERC-1155 標準に基づくアップグレード可能なコントラクトシステムを実装している。
-      ✓ 複数のデジタルコレクティブルコレクションの作成をサポート
-      ✓ 各コレクションは複数の数量に対応可能（1155 標準、NFT、SFT）
-      ✓ 外部リンクを使用せず、SVG 画像を直接オンチェーンに保存することをサポート
-      ✓ ホワイトリスト、エアドロップ、無料請求をサポート
-      ✓ アップグレード可能（UUPS パターン）`,
+      ・複数のデジタルコレクティブルコレクションの作成をサポート
+      ・各コレクションは複数の数量に対応可能（1155 標準、NFT、SFT）
+      ・外部リンクを使用せず、SVG 画像を直接オンチェーンに保存することをサポート
+      ・ホワイトリスト、エアドロップ、無料請求をサポート
+      ・アップグレード可能（UUPS パターン）`,
       project_volcano_title: "火山 NFT",
       project_volcano_desc: `「VolcanoNFT」というスマートコントラクトにより、火山をテーマにした独自の NFT を発行した。
       ユーザーは ETH を支払うことで、ランダムな色合いの火山画像を含む NFT をミント可能である。
