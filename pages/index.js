@@ -59,6 +59,14 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_volcano_desc: `Issued unique volcano-themed NFTs via a smart contract called VolcanoNFT. 
       Users can mint NFTs with randomly generated color schemes by paying in ETH. 
       Each NFT's image and metadata are stored fully on-chain, ensuring permanent accessibility through Base64 encoding.`,
+      project_apollo_title: "Apollo Protocol",
+      project_apollo_desc: `An advanced DeFi protocol built on the Metis chain. While it is a fork of Titano, it implements the following unique features:
+      ・Dynamic rebase mechanism (auto-compounding): User wallet balances grow automatically
+      ・Dynamic liquidity pool: 4% of all transactions are automatically injected into DEX liquidity
+      Security systems:
+      ・Anti-bot measures (high-frequency trading limits)
+      ・Whale limits (slippage control for large trades)
+      ・Anti-dumping mechanism (automatic pause during sharp drops)`,
       project_hashtag_title: "HashTag",
       project_hashtag_desc: `This is a block explorer extension system that targets transaction hashes (txHash) on the Ethereum Mainnet and the Goerli testnet.
       It implements the following features:
@@ -125,6 +133,14 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_volcano_desc: `通过 VolcanoNFT 智能合约发行独特的火山主题 NFT。
       用户可以通过支付 ETH 来铸造具有随机生成色彩方案的 NFT。
       每个 NFT 的图像和元数据均完全存储在链上，通过 Base64 编码确保永久访问。`,
+      project_apollo_title: "Apollo Protocol",
+      project_apollo_desc: `构建在 Metis 链上的高级 DeFi 协议。虽然是 Titano 的分叉版本，但实现了以下独特功能：
+・动态再基准机制（自动复利机制）：用户钱包余额自动增长
+・动态流动性池：4% 的所有交易自动注入 DEX 流动性
+安全系统：
+・反机器人措施（高频交易限制）
+・鲸鱼限制（大额交易滑点控制）
+・反倾销机制（急跌时自动暂停）`,
       project_hashtag_title: "HashTag",
       project_hashtag_desc: `这是一个面向以太坊主网和 Goerli 测试网的交易哈希（txHash）的区块浏览器扩展系统。
         它实现了以下功能：
@@ -191,6 +207,14 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       project_volcano_desc: `「VolcanoNFT」というスマートコントラクトにより、火山をテーマにした独自の NFT を発行した。
       ユーザーは ETH を支払うことで、ランダムな色合いの火山画像を含む NFT をミント可能である。
       各 NFT の画像とメタデータは完全にオンチェーンで保存され、Base64 エンコードを用いて永続的なアクセスが可能となっている。`,
+      project_apollo_title: "Apollo Protocol",
+      project_apollo_desc: `Metis チェーン上に構築された高度な DeFi プロトコル。Titano のフォーク元だが、以下の独自機能を実装：
+・動的リベース機構（自動複利機構）：ユーザーのウォレット残高が自動増加
+・動的流動性プール：全取引の 4% が自動で DEX 流動性に注入
+セキュリティシステム：
+・ボット対策（高頻度取引制限）
+・クジラ制限（大口取引の滑動制御）
+・アンチダンピングメカニズム（急落時自動停止）`,
       project_hashtag_title: "HashTag",
       project_hashtag_desc: `イーサリアムのメインネットおよび Goerli テストネット上のトランザクションハッシュ（txHash）を対象とした、ブロックエクスプローラー拡張システムである。
         以下の機能を実装している：
@@ -673,6 +697,30 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                   className="text-blue-600 hover:underline"
                 >
                   {currentContent.viewIntrodactionVideo}
+                </a>
+              </div>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+              <h4 className="text-xl font-medium mb-2">
+                {currentContent.project_apollo_title}
+              </h4>
+              <p className="text-gray-600 mb-4 whitespace-pre-line">
+                {currentContent.project_apollo_desc}
+              </p>
+              <div className="space-x-6">
+                {" "}
+                {/* 添加水平间距 */}
+                <a
+                  href="https://github.com/0xApolloCrypto"
+                  className="text-blue-600 hover:underline"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://andromeda-explorer.metis.io/address/0xC09d94b59705863174A09CC38506EADcC76C086b/contracts"
+                  className="text-blue-600 hover:underline"
+                >
+                  {currentContent.viewProject}
                 </a>
               </div>
             </div>
