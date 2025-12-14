@@ -657,6 +657,12 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 {" "}
                 {/* 添加水平间距 */}
                 <a
+                  href="https://nitchu-gakuin-collections-frontend.vercel.app/"
+                  className="text-blue-600 hover:underline"
+                >
+                  {currentContent.viewProject}
+                </a>
+                <a
                   href="https://github.com/mokaiko/nitchu-gakuin-collections"
                   className="text-blue-600 hover:underline"
                 >
