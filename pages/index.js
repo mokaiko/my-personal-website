@@ -2,6 +2,36 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 
+const skillIcons = {
+  "Claude API / OpenAI API": "🔌",
+  "Agent / Tool Use": "🤖",
+  "Prompt Engineering": "✨",
+  "Claude Code":
+    "https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/689f4a9aff1f63fde75cf733_favicon.png",
+  Codex: "https://avatars.githubusercontent.com/u/14957082?s=48&v=4",
+  OpenCode: "https://avatars.githubusercontent.com/in/1549082?v=4&size=40",
+  OpenClaw: "https://avatars.githubusercontent.com/u/252820863?s=48&v=4",
+  "Hermes Agent":
+    "https://github.com/NousResearch/hermes-agent/raw/main/assets/banner.png",
+  "Machine Learning": "🧠",
+};
+
+function SkillIcon({ tag }) {
+  const icon = skillIcons[tag];
+  if (!icon) return null;
+  if (icon.startsWith("http")) {
+    return (
+      <img
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        className="w-4 h-4 flex-shrink-0"
+      />
+    );
+  }
+  return <span aria-hidden="true">{icon}</span>;
+}
+
 export default function Home() {
   const [language, setLanguage] = useState("ja");
   const [selectedImage, setSelectedImage] = useState(null); // 新增：控制大图显示
@@ -12,8 +42,8 @@ export default function Home() {
       title: "Mo Kaiko's Personal Website",
       name: "Mo Kaiko",
       location: "Shinjuku, Tokyo, Japan",
-      position:
-        "Blockchain, Web3, Smart Contract, Ethereum, Solidity Developer",
+      position: "AI Application Engineer",
+      positionSub: "Blockchain, Web3, Smart Contract, Solidity Developer",
       contact: "Contact",
       certificate: "NFT Certificates",
       viewNFT: "View NFT Details",
@@ -26,7 +56,24 @@ export default function Home() {
       viewIntrodactionVideo: "View Introduction Video",
       viewProject: "View Project",
       aboutText:
-        "Blockchain engineer specializing in Web3, NFT and smart contract development",
+        "AI application engineer focused on LLM-powered products and autonomous agents. Blockchain engineer specializing in Web3, NFT and smart contract development.",
+      aiSkills: "AI Skills",
+      aiSkills_llm_title: "LLM Application Development",
+      aiSkills_llm_tags: [
+        "Claude API / OpenAI API",
+        "Agent / Tool Use",
+        "Prompt Engineering",
+      ],
+      aiSkills_tools_title: "AI Development Tools",
+      aiSkills_tools_tags: [
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "OpenClaw",
+        "Hermes Agent",
+      ],
+      aiSkills_ml_title: "Machine Learning Basics",
+      aiSkills_ml_tags: ["Machine Learning"],
       nft_alchemyU_title: "Alchemy University EVM Chain Certification",
       nft_alchemyU_desc: `This NFT certifies that the holder has successfully completed the Alchemy University EVM Chain Certification, demonstrating proficiency in:
       ✓ EVM architecture and fundamentals
@@ -88,7 +135,8 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       title: "Mo Kaiko 的个人网站",
       name: "Mo Kaiko",
       location: "日本东京新宿区",
-      position: "区块链、Web3、智能合约开发、以太坊、Solidity 工程师",
+      position: "AI 应用工程师",
+      positionSub: "区块链・Web3・智能合约・Solidity 工程师",
       contact: "联系方式",
       certificate: "NFT 证书",
       viewNFT: "查看 NFT 详情",
@@ -98,7 +146,25 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       network: "区块链网络",
       about: "关于我",
       projects: "项目展示",
-      aboutText: "专注于 Web3、NFT、智能合约开发的区块链工程师",
+      aboutText:
+        "专注于 LLM 应用产品与自主 Agent 开发的 AI 应用工程师。同时也是专注于 Web3、NFT、智能合约开发的区块链工程师。",
+      aiSkills: "AI 技能",
+      aiSkills_llm_title: "LLM 应用开发",
+      aiSkills_llm_tags: [
+        "Claude API / OpenAI API",
+        "Agent / Tool Use",
+        "Prompt Engineering",
+      ],
+      aiSkills_tools_title: "AI 开发工具",
+      aiSkills_tools_tags: [
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "OpenClaw",
+        "Hermes Agent",
+      ],
+      aiSkills_ml_title: "机器学习基础",
+      aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "查看介绍视频",
       viewProject: "查看项目",
       nft_alchemyU_title: "Alchemy University EVM Chain 认证",
@@ -161,7 +227,8 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       title: "Mo Kaiko の個人サイト",
       name: "モウ カイコウ",
       location: "日本東京都新宿区",
-      position: "ブロックチェーン・Web3・イーサリアム・Solidity 開発者",
+      position: "AI アプリケーションエンジニア",
+      positionSub: "ブロックチェーン・Web3・スマートコントラクト・Solidity 開発者",
       contact: "連絡先",
       certificate: "NFT 証明書",
       viewNFT: "NFT 詳細を見る",
@@ -172,7 +239,24 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       about: "自己紹介",
       projects: "プロジェクト",
       aboutText:
-        "Web3・NFT・スマートコントラクト開発に特化したブロックチェーンエンジニア",
+        "LLM を活用したプロダクトと自律エージェント開発に注力する AI アプリケーションエンジニア。また、Web3・NFT・スマートコントラクト開発に特化したブロックチェーンエンジニアでもある。",
+      aiSkills: "AI スキル",
+      aiSkills_llm_title: "LLM アプリケーション開発",
+      aiSkills_llm_tags: [
+        "Claude API / OpenAI API",
+        "Agent / Tool Use",
+        "Prompt Engineering",
+      ],
+      aiSkills_tools_title: "AI 開発ツール",
+      aiSkills_tools_tags: [
+        "Claude Code",
+        "Codex",
+        "OpenCode",
+        "OpenClaw",
+        "Hermes Agent",
+      ],
+      aiSkills_ml_title: "機械学習基礎",
+      aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "紹介ビデオを見る",
       viewProject: "プロジェクトを見る",
       nft_alchemyU_title: "Alchemy University EVM Chain 認定",
@@ -431,8 +515,11 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                     </svg>
                     {currentContent.location}
                   </p>
-                  <p className="text-xl text-gray-600 mb-2">
+                  <p className="text-xl text-gray-600 mb-1">
                     {currentContent.position}
+                  </p>
+                  <p className="text-xl text-gray-600 mb-2">
+                    {currentContent.positionSub}
                   </p>
                 </div>
 
@@ -445,6 +532,62 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                     {currentContent.aboutText}
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            {currentContent.aiSkills}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+              <h3 className="text-lg font-semibold mb-4 text-indigo-700">
+                {currentContent.aiSkills_llm_title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {currentContent.aiSkills_llm_tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                  >
+                    <SkillIcon tag={tag} />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+              <h3 className="text-lg font-semibold mb-4 text-indigo-700">
+                {currentContent.aiSkills_tools_title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {currentContent.aiSkills_tools_tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                  >
+                    <SkillIcon tag={tag} />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+              <h3 className="text-lg font-semibold mb-4 text-indigo-700">
+                {currentContent.aiSkills_ml_title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {currentContent.aiSkills_ml_tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                  >
+                    <SkillIcon tag={tag} />
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
