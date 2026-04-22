@@ -228,7 +228,8 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       name: "モウ カイコウ",
       location: "日本東京都新宿区",
       position: "AI アプリケーションエンジニア",
-      positionSub: "ブロックチェーン・Web3・スマートコントラクト・Solidity 開発者",
+      positionSub:
+        "ブロックチェーン・Web3・スマートコントラクト・Solidity 開発者",
       contact: "連絡先",
       certificate: "NFT 証明書",
       viewNFT: "NFT 詳細を見る",
@@ -616,7 +617,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                   className="cursor-pointer hover:scale-105 transition-transform duration-200 mt-4"
                   onClick={() =>
                     setSelectedImage(
-                      "https://ipfs.io/ipfs/bafybeigm6vb54tn7p3dbiig2mw3dzaejqhn2zy5e3iaww6viuzdtxbcoum"
+                      "https://ipfs.io/ipfs/bafybeigm6vb54tn7p3dbiig2mw3dzaejqhn2zy5e3iaww6viuzdtxbcoum",
                     )
                   }
                 >
@@ -674,7 +675,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                   className="cursor-pointer hover:scale-105 transition-transform duration-200"
                   onClick={() =>
                     setSelectedImage(
-                      "https://i2.seadn.io/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/8516d699437d9155e2639696991b9b/da8516d699437d9155e2639696991b9b.jpeg?w=1000"
+                      "https://i2.seadn.io/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/8516d699437d9155e2639696991b9b/da8516d699437d9155e2639696991b9b.jpeg?w=1000",
                     )
                   }
                 >
@@ -717,7 +718,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 
                 {/* 链上信息保持不变 */}
                 <div className="mt-4 text-sm text-gray-500">
-                  <p>{currentContent.ownerAddress}: 0x34F3...3612</p>
+                  <p>{currentContent.ownerAddress}: 0x3a9E...10c1</p>
                   <p>{currentContent.contractAddress}: 0xdBf2...51F5</p>
                   <p>{currentContent.network}: Polygon Network</p>
                 </div>
@@ -732,7 +733,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                   className="cursor-pointer hover:scale-105 transition-transform duration-200"
                   onClick={() =>
                     setSelectedImage(
-                      "https://i2.seadn.io/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/8497cf59a89f826df103db2bae50d4/3f8497cf59a89f826df103db2bae50d4.png?w=350"
+                      "https://i2.seadn.io/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/8497cf59a89f826df103db2bae50d4/3f8497cf59a89f826df103db2bae50d4.png?w=350",
                     )
                   }
                 >
@@ -775,7 +776,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 
                 {/* 链上信息保持不变 */}
                 <div className="mt-4 text-sm text-gray-500">
-                  <p>{currentContent.ownerAddress}: 0x34F3...3612</p>
+                  <p>{currentContent.ownerAddress}: 0x3a9E...10c1</p>
                   <p>{currentContent.contractAddress}: 0x26D8...B0ae</p>
                   <p>{currentContent.network}: Ethereum Mainnet</p>
                 </div>
