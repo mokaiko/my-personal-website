@@ -128,6 +128,15 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       It aims to provide traders with data-driven decision support, helping them identify market opportunities.`,
       project_chinese_restaurant_in_tokyo_title:
         "Tokyo Delicious Chinese Cuisine Complete Guide",
+      project_firstra_title: "Firstra - Learning & Task Management Tool",
+      project_firstra_desc: `A learning and task management app for self-study — register your textbooks, set goals, log daily progress, and visualize your journey with interactive charts.
+・Register reference books with target goals (pages/problems/units) and study period
+・Log daily progress and visualize your learning curve with interactive charts comparing plan vs. actual
+・Built-in Pomodoro timer with customizable sounds to boost focus
+・Custom task management with repeat scheduling and color labels
+・10-language support: JA / EN / ZH-CN / ZH-TW / KO / HI / FR / ID / VI / ES
+・Pro features: custom themes, cover images, chart backgrounds, premium sounds, custom avatars, and more
+・Available as a web app and native iOS app`,
       project_chinese_restaurant_in_tokyo_desc: `A guide to delicious Chinese restaurants in Tokyo for Chinese people living in Japan and Japanese people who love authentic Chinese food.
         Built with Next.js and Tailwind CSS, featuring a responsive design.`,
     },
@@ -220,6 +229,15 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         该项目的核心是利用各种预定义的交易策略，智能分析市场动向并预测加密货币的趋势。
         它旨在为交易者提供数据驱动的决策支持，洞察市场先机。`,
       project_chinese_restaurant_in_tokyo_title: "东京美味中国料理大全",
+      project_firstra_title: "Firstra - 学习与任务管理工具",
+      project_firstra_desc: `一款集学习管理与任务管理于一体的自学应用。注册参考书、设定目标、记录每日进度，用交互式图表追踪学习轨迹。
+・注册参考书，设定目标（页数/题数/单元数）与学习周期
+・每日记录进度，通过交互式图表对比计划与实际学习曲线
+・内置番茄钟计时器，可自定义提示音，提升专注力
+・自定义任务管理，支持重复排程与颜色标签
+・支持 10 种语言：日 / 英 / 简中 / 繁中 / 韩 / 印 / 法 / 印尼 / 越 / 西
+・Pro 功能：自定义主题、封面图片、图表背景、高级提示音、自定义头像等
+・提供 Web 应用及原生 iOS App`,
       project_chinese_restaurant_in_tokyo_desc: `面向在日华人及热爱正宗中餐的日本人，提供东京美味中餐厅指南。
         使用 Next.js 和 Tailwind CSS 构建，采用响应式设计。`,
     },
@@ -313,6 +331,15 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         このプロジェクトの核心は、さまざまな事前定義された取引戦略を利用して、市場の動向をインテリジェントに分析し、暗号通貨のトレンドを予測することである。
         トレーダーにデータ駆動型の意思決定支援を提供し、市場の機会を見極めるのに役立つことを目的としている。`,
       project_chinese_restaurant_in_tokyo_title: "ぽーたぶる中国料理",
+      project_firstra_title: "Firstra - 学習・タスク管理ツール",
+      project_firstra_desc: `学習管理とタスク管理を組み合わせた独学アプリ。参考書の登録から目標設定、日々の進捗記録、グラフでの可視化まで。
+・参考書を登録し、目標（ページ数/問題数/単元数）と学習期間を設定
+・毎日の進捗を記録し、計画と実績を比較するインタラクティブなグラフで学習曲線を可視化
+・集中力を高めるポモドーロタイマー内蔵（カスタマイズ可能なサウンド付き）
+・カスタムタスク管理（繰り返し設定・カラーラベル付き）
+・10言語対応：日本語 / 英語 / 簡体字中国語 / 繁体字中国語 / 韓国語 / ヒンディー語 / フランス語 / インドネシア語 / ベトナム語 / スペイン語
+・Pro機能：カスタムテーマ、カバー画像、チャート背景、プレミアムサウンド、カスタムアバターなど
+・WebアプリとネイティブiOSアプリとして利用可能`,
       project_chinese_restaurant_in_tokyo_desc: `在日中国人および本格中華を愛する日本人に向けた、東京の美味しい中国料理店ガイド。
         Next.js と Tailwind CSS を使用して構築されており、レスポンシブデザインを採用している。`,
     },
@@ -790,6 +817,30 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
             {currentContent.projects}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+              <h4 className="text-xl font-medium mb-2">
+                {currentContent.project_firstra_title}
+              </h4>
+              <p className="text-gray-600 mb-4 whitespace-pre-line">
+                {currentContent.project_firstra_desc}
+              </p>
+              <div className="space-x-6">
+                {" "}
+                {/* 添加水平间距 */}
+                <a
+                  href="https://firstra.vercel.app/"
+                  className="text-blue-600 hover:underline"
+                >
+                  {currentContent.viewProject}
+                </a>
+                <a
+                  href="https://apps.apple.com/app/id6773582786"
+                  className="text-blue-600 hover:underline"
+                >
+                  App Store
+                </a>
+              </div>
+            </div>
             <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
               <h4 className="text-xl font-medium mb-2">
                 {currentContent.project_nitchugakuin_title}
