@@ -283,8 +283,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ・Exam predictions: predict next year's topics by subject from past-exam trends
 ・High-frequency mock exams: exam-style practice built around frequently tested topics
 ・AI explanations: 24/7 personalised AI explanations for every topic
-・5 languages: JA / ZH-CN / ZH-TW / KO / EN
-Currently available: The University of Electro-Communications, Department of Informatics (Linear Algebra, Calculus, Algorithms & Data Structures, Probability & OR, Discrete Mathematics, Computer Engineering)`,
+・5 languages: JA / ZH-CN / ZH-TW / KO / EN`,
       project_firstra_title: "Firstra - Learning & Task Management Tool",
       project_firstra_desc: `A learning and task management app for self-study — register your textbooks, set goals, log daily progress, and visualize your journey with interactive charts.
 ・Register reference books with target goals (pages/problems/units) and study period
@@ -409,8 +408,7 @@ Currently available: The University of Electro-Communications, Department of Inf
 ・考点预测：依据历年出题趋势预测下一年度考点
 ・高频模拟题：围绕高频考点编排的实战模拟练习
 ・AI 讲解：每个考点均提供 24 小时 AI 个性化讲解
-・支持 5 种语言：日 / 简中 / 繁中 / 韩 / 英
-目前已上线：电气通信大学 情报学专攻（线性代数、微积分、算法与数据结构、概率与运筹、离散数学、计算机组成）`,
+・支持 5 种语言：日 / 简中 / 繁中 / 韩 / 英`,
       project_firstra_title: "Firstra - 学习与任务管理工具",
       project_firstra_desc: `一款集学习管理与任务管理于一体的自学应用。注册参考书、设定目标、记录每日进度，用交互式图表追踪学习轨迹。
 ・注册参考书，设定目标（页数/题数/单元数）与学习周期
@@ -536,8 +534,7 @@ AI の能力の境界と活用の指針を体系的に整理：
 ・出題予測：過去問の傾向から科目ごとに翌年度の出題分野を予測
 ・頻出模擬問題：頻出テーマを中心に構成した本番形式の模擬演習
 ・AI 解説：全テーマに対して 24 時間 AI が個別解説
-・5 言語対応：日本語 / 簡体字中国語 / 繁体字中国語 / 韓国語 / 英語
-現在公開中：電気通信大学 情報学専攻（線形代数・微分積分・アルゴリズムとデータ構造・確率とOR・離散数学・計算機工学）`,
+・5 言語対応：日本語 / 簡体字中国語 / 繁体字中国語 / 韓国語 / 英語`,
       project_firstra_title: "Firstra - 学習・タスク管理ツール",
       project_firstra_desc: `学習管理とタスク管理を組み合わせた独学アプリ。参考書の登録から目標設定、日々の進捗記録、グラフでの可視化まで。
 ・参考書を登録し、目標（ページ数/問題数/単元数）と学習期間を設定
