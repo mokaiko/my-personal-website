@@ -10,26 +10,158 @@ const skillIcons = {
     "https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/689f4a9aff1f63fde75cf733_favicon.png",
   Codex: "https://avatars.githubusercontent.com/u/14957082?s=48&v=4",
   OpenCode: "https://avatars.githubusercontent.com/in/1549082?v=4&size=40",
-  OpenClaw: "https://avatars.githubusercontent.com/u/252820863?s=48&v=4",
-  "Hermes Agent":
-    "https://github.com/NousResearch/hermes-agent/raw/main/assets/banner.png",
+  "DeepSeek Harness": "/deepseek-harness.png",
   "Machine Learning": "🧠",
 };
 
 function SkillIcon({ tag }) {
   const icon = skillIcons[tag];
   if (!icon) return null;
-  if (icon.startsWith("http")) {
+  if (icon.startsWith("http") || icon.startsWith("/")) {
     return (
       <img
         src={icon}
         alt=""
         aria-hidden="true"
-        className="w-4 h-4 flex-shrink-0"
+        className="w-4 h-4 flex-shrink-0 object-contain"
       />
     );
   }
   return <span aria-hidden="true">{icon}</span>;
+}
+
+// 卡片说明：逐行渲染，✓ / ・ 开头的条目做悬挂缩进，避免折行后尾字掉到下一行行首
+function CardDesc({ text }) {
+  return (
+    <div className="text-sm text-gray-600 leading-relaxed flex-1">
+      {text.split("\n").map((raw, index) => {
+        const line = raw.trim();
+        if (!line) return null;
+        const isBullet = /^[✓・]/.test(line);
+        return (
+          <p key={index} className={isBullet ? "pl-4 -indent-4" : undefined}>
+            {line}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+// 卡片配色（Tailwind 需要静态类名，所以这里写全）
+const certAccent = {
+  orange: {
+    card: "border-orange-100",
+    media: "bg-orange-50/70 border-orange-100",
+    img: "border-orange-200",
+  },
+  blue: {
+    card: "border-blue-100",
+    media: "bg-blue-50/70 border-blue-100",
+    img: "border-amber-300",
+  },
+  slate: {
+    card: "border-slate-100",
+    media: "bg-slate-50/70 border-slate-100",
+    img: "border-slate-200",
+  },
+};
+
+// 通用展示卡片：左图右文。证书和项目共用同一套版式。
+// images 为空数组时，图片位渲染成虚线占位框（等截图）。
+function ShowcaseCard({
+  images = [],
+  title,
+  desc,
+  links = [],
+  meta = [],
+  accent = "blue",
+  onPreview,
+}) {
+  const theme = certAccent[accent] || certAccent.blue;
+
+  return (
+    <div
+      className={`bg-white rounded-xl shadow-sm border ${theme.card} hover:shadow-lg transition-shadow flex overflow-hidden`}
+    >
+      {/* 图片区（左侧，可放 1 张或多张，点击看大图） */}
+      <div
+        className={`w-28 sm:w-32 flex-shrink-0 flex flex-col items-center justify-center gap-3 p-3 border-r ${theme.media}`}
+      >
+        {images.length === 0 && (
+          <div
+            className="w-full aspect-[4/3] rounded border border-dashed border-slate-300 flex items-center justify-center"
+            aria-hidden="true"
+          >
+            <svg
+              className="w-6 h-6 text-slate-300"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+              />
+            </svg>
+          </div>
+        )}
+        {images.map((image) => (
+          <button
+            key={image.src}
+            type="button"
+            title={image.alt}
+            onClick={() => onPreview(image.src)}
+            className="w-full p-0 flex items-center justify-center cursor-pointer rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className={`max-h-44 max-w-full object-contain rounded border ${theme.img} shadow-sm hover:scale-105 transition-transform duration-200`}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* 文字区（右侧） */}
+      <div className="p-4 flex flex-col flex-1 min-w-0">
+        <h4 className="text-base font-semibold text-gray-800 mb-1.5 leading-snug">
+          {title}
+        </h4>
+        <CardDesc text={desc} />
+
+        {links.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={
+                  link.primary
+                    ? "text-sm bg-blue-500 hover:bg-blue-600 text-white px-2.5 py-1 rounded-md transition-colors"
+                    : "text-sm border border-gray-300 text-gray-600 hover:bg-gray-50 px-2.5 py-1 rounded-md transition-colors"
+                }
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {meta.length > 0 && (
+          <div className="mt-3 pt-2.5 border-t border-gray-100 text-xs text-gray-400 space-y-0.5">
+            {meta.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -45,7 +177,7 @@ export default function Home() {
       position: "AI Application Engineer",
       positionSub: "Blockchain, Web3, Smart Contract, Solidity Developer",
       contact: "Contact",
-      certificate: "NFT Certificates",
+      certificate: "AI Certificates / NFT Certificates",
       viewNFT: "View NFT Details",
       transaction: "Verify Transaction",
       contractAddress: "Contract Address",
@@ -69,19 +201,35 @@ export default function Home() {
         "Claude Code",
         "Codex",
         "OpenCode",
-        "OpenClaw",
-        "Hermes Agent",
+        "DeepSeek Harness",
       ],
       aiSkills_ml_title: "Machine Learning Basics",
       aiSkills_ml_tags: ["Machine Learning"],
+      aiCert_claudecode_title: "Claude Code 101 Certification",
+      aiCert_claudecode_desc: `Claude Academy Course Completion Badge.
+This course covers the core of Claude Code:
+✓ Driving a complete development workflow in natural language from the terminal
+✓ Understanding, writing, refactoring and debugging real codebases
+✓ Context management and project-level instruction setup
+✓ Tool use and custom workflow extensions`,
+      aiCert_aiCapabilities_title: "AI Capabilities and Limitations Certification",
+      aiCert_aiCapabilities_desc: `Claude Academy Course Completion Badge.
+This course maps out the boundaries of AI:
+✓ The capability range and typical limits of large language models
+✓ Recognizing hallucination, knowledge cutoffs and scope boundaries
+✓ Verification habits and practices that reduce risk
+✓ Using AI responsibly inside real workflows`,
+      aiCert_issuer: "Issuer",
+      aiCert_issuedAt: "Issued",
+      aiCert_group: "AI Certificates",
+      nftCert_group: "NFT Certificates",
       nft_alchemyU_title: "Alchemy University EVM Chain Certification",
       nft_alchemyU_desc: `This NFT certifies that the holder has successfully completed the Alchemy University EVM Chain Certification, demonstrating proficiency in:
       ✓ EVM architecture and fundamentals
       ✓ Smart contract development with Solidity
       ✓ DApp development and deployment
       ✓ Blockchain security best practices
-      ✓ Interaction with Ethereum and Layer 2 solutions
-      This certification NFT is not only a professional recognition of the holder's developer skills but also a significant milestone for entering the Web3 development field, symbolizing a solid foundation in EVM development and the potential to continually build reliable decentralized applications.`,
+      ✓ Interaction with Ethereum and Layer 2 solutions`,
       nft_encode_title: "Encode Graduate Certificate",
       nft_encode_desc: `🎓 ETHDenver × Encode Club Solidity Bootcamp Cohort 1 Graduate
 Successfully completed the inaugural Solidity development bootcamp (October 2022), demonstrating proficiency in:
@@ -89,8 +237,7 @@ Successfully completed the inaugural Solidity development bootcamp (October 2022
 ✓ Advanced Solidity programming
 ✓ DeFi protocol architecture
 ✓ Blockchain security best practices
-✓ DApp design patterns
-This NFT certifies foundational expertise in Web3 development and commemorates participation in the pioneering cohort that helped shape the future of decentralized technology.`,
+✓ DApp design patterns`,
       nft_10years_title: "Ten Years Of Ethereum",
       nft_10years_desc: `A Decade Forging Legends, Code Transforming the World.
 This NFT bears witness to the holder's journey of growth alongside Ethereum, serving as a profound tribute to blockchain pioneers and symbolizing the relentless pursuit of a decentralized future.`,
@@ -128,6 +275,16 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       It aims to provide traders with data-driven decision support, helping them identify market opportunities.`,
       project_chinese_restaurant_in_tokyo_title:
         "Tokyo Delicious Chinese Cuisine Complete Guide",
+      project_nyushi_title: "Graduate Entrance Exam Prep",
+      project_nyushi_desc: `An AI study platform for applicants to Japanese graduate schools — built on past exam papers, starting from zero.
+・Past exam analysis: in-depth analysis of 13 years of past exams to reveal question patterns
+・Learning roadmaps: study efficiently through prerequisites and exam topic areas
+・Year-by-year practice: practise each question by year, take notes, and master them one by one
+・Exam predictions: predict next year's topics by subject from past-exam trends
+・High-frequency mock exams: exam-style practice built around frequently tested topics
+・AI explanations: 24/7 personalised AI explanations for every topic
+・5 languages: JA / ZH-CN / ZH-TW / KO / EN
+Currently available: The University of Electro-Communications, Department of Informatics (Linear Algebra, Calculus, Algorithms & Data Structures, Probability & OR, Discrete Mathematics, Computer Engineering)`,
       project_firstra_title: "Firstra - Learning & Task Management Tool",
       project_firstra_desc: `A learning and task management app for self-study — register your textbooks, set goals, log daily progress, and visualize your journey with interactive charts.
 ・Register reference books with target goals (pages/problems/units) and study period
@@ -147,7 +304,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       position: "AI 应用工程师",
       positionSub: "区块链・Web3・智能合约・Solidity 工程师",
       contact: "联系方式",
-      certificate: "NFT 证书",
+      certificate: "AI 证书 / NFT 证书",
       viewNFT: "查看 NFT 详情",
       transaction: "验证交易",
       contractAddress: "合约地址",
@@ -169,21 +326,37 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         "Claude Code",
         "Codex",
         "OpenCode",
-        "OpenClaw",
-        "Hermes Agent",
+        "DeepSeek Harness",
       ],
       aiSkills_ml_title: "机器学习基础",
       aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "查看介绍视频",
       viewProject: "查看项目",
+      aiCert_claudecode_title: "Claude Code 101 认证",
+      aiCert_claudecode_desc: `Claude Academy 课程完成认证。
+该课程系统学习 Claude Code 的核心用法：
+✓ 在终端中以自然语言驱动完整开发流程
+✓ 代码库理解、编写、重构与调试
+✓ 上下文管理与项目级指令配置
+✓ 工具调用与自定义工作流扩展`,
+      aiCert_aiCapabilities_title: "AI 能力与局限 认证",
+      aiCert_aiCapabilities_desc: `Claude Academy 课程完成认证。
+该课程系统梳理 AI 的能力边界与使用准则：
+✓ 大语言模型的能力范围与典型局限
+✓ 幻觉、知识时效性与适用边界的识别
+✓ 降低风险的验证习惯与使用方法
+✓ 在实际工作流中负责任地使用 AI`,
+      aiCert_issuer: "颁发机构",
+      aiCert_issuedAt: "颁发时间",
+      aiCert_group: "AI 证书",
+      nftCert_group: "NFT 证书",
       nft_alchemyU_title: "Alchemy University EVM Chain 认证",
       nft_alchemyU_desc: `此 NFT 证明持有者已成功完成 Alchemy University EVM Chain 开发者认证，展示了以下方面的熟练掌握：
       ✓ EVM 架构与基础
       ✓ 使用 Solidity 进行智能合约开发
       ✓ DApp 开发与部署
       ✓ 区块链安全最佳实践
-      ✓ 与以太坊及 Layer 2 解决方案的交互
-      本认证 NFT 不仅是对开发者技能的专业认可，也是进入 Web3 开发领域的重要里程碑，象征着扎实的 EVM 开发功底与持续构建可信去中心化应用的潜力。`,
+      ✓ 与以太坊及 Layer 2 解决方案的交互`,
       nft_encode_title: "Encode 毕业证书",
       nft_encode_desc: `🎓 ETHDenver × Encode Club Solidity 训练营第一期毕业认证
 成功完成2022年10月首期 intensive Solidity 开发训练营，证明持有者已掌握：
@@ -191,8 +364,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ✓ Solidity高级编程技巧  
 ✓ DeFi协议原理与实现
 ✓ 区块链安全与最佳实践
-✓ 去中心化应用架构设计
-作为首批毕业生，此 NFT 象征着在 Web3 开发领域的早期领导地位和技术专长，标志着从学习者到建设者的重要转变。`,
+✓ 去中心化应用架构设计`,
       nft_10years_title: "以太坊十周年纪念",
       nft_10years_desc: `十年铸就传奇，代码改变世界。
 此NFT见证持有者与以太坊共同成长的旅程，是对区块链先驱者的崇高致敬，象征着对去中心化未来的不懈追求。`,
@@ -229,6 +401,16 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         该项目的核心是利用各种预定义的交易策略，智能分析市场动向并预测加密货币的趋势。
         它旨在为交易者提供数据驱动的决策支持，洞察市场先机。`,
       project_chinese_restaurant_in_tokyo_title: "东京美味中国料理大全",
+      project_nyushi_title: "大学院入试对策",
+      project_nyushi_desc: `面向日本大学院（修士）考生的 AI 学习平台，以历年真题为基础，从零基础开始备考。
+・真题解析：深入分析 13 年历年真题，把握出题规律
+・学习路线图：依据先修关系与考点领域规划高效学习路径
+・逐年刷题：按年份逐题练习、记录笔记，一题一题攻克
+・考点预测：依据历年出题趋势预测下一年度考点
+・高频模拟题：围绕高频考点编排的实战模拟练习
+・AI 讲解：每个考点均提供 24 小时 AI 个性化讲解
+・支持 5 种语言：日 / 简中 / 繁中 / 韩 / 英
+目前已上线：电气通信大学 情报学专攻（线性代数、微积分、算法与数据结构、概率与运筹、离散数学、计算机组成）`,
       project_firstra_title: "Firstra - 学习与任务管理工具",
       project_firstra_desc: `一款集学习管理与任务管理于一体的自学应用。注册参考书、设定目标、记录每日进度，用交互式图表追踪学习轨迹。
 ・注册参考书，设定目标（页数/题数/单元数）与学习周期
@@ -249,7 +431,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       positionSub:
         "ブロックチェーン・Web3・スマートコントラクト・Solidity 開発者",
       contact: "連絡先",
-      certificate: "NFT 証明書",
+      certificate: "AI 証明書 / NFT 証明書",
       viewNFT: "NFT 詳細を見る",
       transaction: "トランザクションを確認する",
       contractAddress: "コントラクトアドレス",
@@ -271,21 +453,37 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         "Claude Code",
         "Codex",
         "OpenCode",
-        "OpenClaw",
-        "Hermes Agent",
+        "DeepSeek Harness",
       ],
       aiSkills_ml_title: "機械学習基礎",
       aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "紹介ビデオを見る",
       viewProject: "プロジェクトを見る",
+      aiCert_claudecode_title: "Claude Code 101 認定",
+      aiCert_claudecode_desc: `Claude Academy コース修了バッジ。
+Claude Code の核心を体系的に学習：
+✓ ターミナルから自然言語で開発ワークフローを駆動
+✓ コードベースの理解・実装・リファクタリング・デバッグ
+✓ コンテキスト管理とプロジェクト単位の指示設定
+✓ ツール連携とカスタムワークフローの拡張`,
+      aiCert_aiCapabilities_title: "AI の能力と限界 認定",
+      aiCert_aiCapabilities_desc: `Claude Academy コース修了バッジ。
+AI の能力の境界と活用の指針を体系的に整理：
+✓ 大規模言語モデルの能力範囲と典型的な限界
+✓ ハルシネーション・知識のカットオフ・適用範囲の見極め
+✓ リスクを抑える検証習慣と活用方法
+✓ 実務ワークフローにおける責任ある AI 活用`,
+      aiCert_issuer: "発行機関",
+      aiCert_issuedAt: "発行日",
+      aiCert_group: "AI 証明書",
+      nftCert_group: "NFT 証明書",
       nft_alchemyU_title: "Alchemy University EVM Chain 認定",
       nft_alchemyU_desc: `この NFT は、保有者が Alchemy University EVM Chain 開発者認定を無事に修了し、以下の分野での習熟度を示していることを証明するものである：
       ✓ EVM のアーキテクチャと基礎
       ✓ Solidity を用いたスマートコントラクト開発
       ✓ DApp の開発とデプロイ
       ✓ ブロックチェーンセキュリティのベストプラクティス
-      ✓ イーサリアムおよび Layer 2 ソリューションとのインタラクション
-      本認定NFTは、開発者のスキルに対する専門的な認定であるだけでなく、Web3開発分野への参入における重要なマイルストーンであり、確固たるEVM開発の基礎と、信頼性の高い分散型アプリケーションを継続的に構築する可能性を象徴するものである。`,
+      ✓ イーサリアムおよび Layer 2 ソリューションとのインタラクション`,
       nft_encode_title: "Encode グラデュエート証書",
       nft_encode_desc: `ETHDenver × Encode Club Solidity Bootcamp 第一期グラデュエート認定。
 先駆的な Solidity 開発ブートキャンプ（2022年10月）を修了したことを証明する。以下における習熟度を示すものである：
@@ -293,8 +491,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ✓ 高度な Solidity プログラミング
 ✓ DeFi プロトコルのアーキテクチャ
 ✓ ブロックチェーンセキュリティのベストプラクティス
-✓ 分散型アプリケーション（DApp）のデザインパターン
-この NFT は、Web3 開発における基礎的な専門知識を証明し、分散型技術の未来を形作るのに貢献したパイオニア期の参加を記念するものである。`,
+✓ 分散型アプリケーション（DApp）のデザインパターン`,
       nft_10years_title: "イーサリアム十周年記念",
       nft_10years_desc: `十年にわたって伝説を築き、コードが世界を変える。
 この NFT は、保有者がイーサリアムと共に成長してきた旅路を証するものであり、ブロックチェーンの先駆者たちへの崇高な賛辞である。同時に、分散型未来への不断の追求を象徴する。`,
@@ -331,6 +528,16 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
         このプロジェクトの核心は、さまざまな事前定義された取引戦略を利用して、市場の動向をインテリジェントに分析し、暗号通貨のトレンドを予測することである。
         トレーダーにデータ駆動型の意思決定支援を提供し、市場の機会を見極めるのに役立つことを目的としている。`,
       project_chinese_restaurant_in_tokyo_title: "ぽーたぶる中国料理",
+      project_nyushi_title: "大学院入試対策",
+      project_nyushi_desc: `日本大学院（修士）受験者向けの、過去問をベースにした AI 学習プラットフォーム。ゼロ基礎から受験対策を始められる。
+・過去問分析：13 年分の過去問を徹底分析し、出題パターンを把握
+・学習ロードマップ：前提知識と出題分野から効率的な学習順序を設計
+・年度別演習：年度ごとに一問ずつ演習し、メモを記録して着実に攻略
+・出題予測：過去問の傾向から科目ごとに翌年度の出題分野を予測
+・頻出模擬問題：頻出テーマを中心に構成した本番形式の模擬演習
+・AI 解説：全テーマに対して 24 時間 AI が個別解説
+・5 言語対応：日本語 / 簡体字中国語 / 繁体字中国語 / 韓国語 / 英語
+現在公開中：電気通信大学 情報学専攻（線形代数・微分積分・アルゴリズムとデータ構造・確率とOR・離散数学・計算機工学）`,
       project_firstra_title: "Firstra - 学習・タスク管理ツール",
       project_firstra_desc: `学習管理とタスク管理を組み合わせた独学アプリ。参考書の登録から目標設定、日々の進捗記録、グラフでの可視化まで。
 ・参考書を登録し、目標（ページ数/問題数/単元数）と学習期間を設定
@@ -570,7 +777,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
             {currentContent.aiSkills}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+            <div className="bg-gradient-to-b from-indigo-50 to-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
               <h3 className="text-lg font-semibold mb-4 text-indigo-700">
                 {currentContent.aiSkills_llm_title}
               </h3>
@@ -578,7 +785,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 {currentContent.aiSkills_llm_tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-indigo-700 rounded-full text-sm border border-indigo-200 shadow-sm"
                   >
                     <SkillIcon tag={tag} />
                     {tag}
@@ -586,7 +793,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 ))}
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+            <div className="bg-gradient-to-b from-indigo-50 to-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
               <h3 className="text-lg font-semibold mb-4 text-indigo-700">
                 {currentContent.aiSkills_tools_title}
               </h3>
@@ -594,7 +801,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 {currentContent.aiSkills_tools_tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-indigo-700 rounded-full text-sm border border-indigo-200 shadow-sm"
                   >
                     <SkillIcon tag={tag} />
                     {tag}
@@ -602,7 +809,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 ))}
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
+            <div className="bg-gradient-to-b from-indigo-50 to-white rounded-xl shadow-md p-6 border border-indigo-100 hover:shadow-lg transition-shadow">
               <h3 className="text-lg font-semibold mb-4 text-indigo-700">
                 {currentContent.aiSkills_ml_title}
               </h3>
@@ -610,7 +817,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
                 {currentContent.aiSkills_ml_tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm border border-indigo-200"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-indigo-700 rounded-full text-sm border border-indigo-200 shadow-sm"
                   >
                     <SkillIcon tag={tag} />
                     {tag}
@@ -625,366 +832,348 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
           <h2 className="text-2xl font-bold mb-6 text-gray-800">
             {currentContent.certificate}
           </h2>
-          <div className="bg-white rounded-xl shadow-md p-6 border border-blue-100 hover:shadow-lg transition-shadow">
-            {/* Alchemy University NFT */}
-            <div className="flex flex-col md:flex-row items-center gap-20 mb-10">
-              <div className="flex-shrink-0">
-                {/* 修改：添加点击事件 */}
-                <div
-                  className="cursor-pointer hover:scale-105 transition-transform duration-200"
-                  onClick={() => setSelectedImage("AlchemyU_Certificate.png")}
-                >
-                  <img
-                    src="AlchemyU_Certificate.png"
-                    alt="Alchemy University EVM Chain Certification NFT"
-                    className="w-48 h-26 rounded-lg object-cover border-2 border-amber-400 shadow-sm"
-                  />
-                </div>
-                <div
-                  className="cursor-pointer hover:scale-105 transition-transform duration-200 mt-4"
-                  onClick={() =>
-                    setSelectedImage(
-                      "https://ipfs.io/ipfs/bafybeigm6vb54tn7p3dbiig2mw3dzaejqhn2zy5e3iaww6viuzdtxbcoum",
-                    )
-                  }
-                >
-                  <img
-                    src="https://ipfs.io/ipfs/bafybeigm6vb54tn7p3dbiig2mw3dzaejqhn2zy5e3iaww6viuzdtxbcoum"
-                    alt="Alchemy University EVM Chain Certification NFT"
-                    className="w-48 h-48 rounded-lg object-cover border-2 border-amber-400 shadow-sm"
-                  />
-                </div>
-              </div>
 
-              {/* 证书信息保持不变 */}
-              <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {currentContent.nft_alchemyU_title}
-                </h3>
-                <p className="text-gray-600 mb-4 whitespace-pre-line">
-                  {currentContent.nft_alchemyU_desc}
-                </p>
+          {/* ---------- AI 证书 ---------- */}
+          <div className="mb-10">
+            <h3 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+              <span className="w-1 h-4 bg-orange-400 rounded-full inline-block" />
+              {currentContent.aiCert_group}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <ShowcaseCard
+                accent="orange"
+                onPreview={setSelectedImage}
+                images={[
+                  {
+                    src: "/ClaudeAcademy_ClaudeCode101.png",
+                    alt: "Claude Academy - Claude Code 101 Course Completion Badge",
+                  },
+                ]}
+                title={currentContent.aiCert_claudecode_title}
+                desc={currentContent.aiCert_claudecode_desc}
+                meta={[
+                  `${currentContent.aiCert_issuer}: Claude Academy`,
+                  `${currentContent.aiCert_issuedAt}: 2026-08-26`,
+                ]}
+              />
 
-                {/* 交互按钮保持不变 */}
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href="https://opensea.io/item/shape/0xcbe9500ef4f760d05d70381ccdf0169470b137de/23"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.viewNFT}</span>
-                  </a>
-                  <a
-                    href="https://shapescan.xyz/token/0xCBE9500Ef4F760d05D70381cCDF0169470b137DE/instance/23"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.transaction}</span>
-                  </a>
-                </div>
-
-                {/* 链上信息保持不变 */}
-                <div className="mt-4 text-sm text-gray-500">
-                  <p>{currentContent.ownerAddress}: 0x34F3...3612</p>
-                  <p>{currentContent.contractAddress}: 0xCBE95...37DE</p>
-                  <p>{currentContent.network}: Shape Network</p>
-                </div>
-              </div>
+              <ShowcaseCard
+                accent="orange"
+                onPreview={setSelectedImage}
+                images={[
+                  {
+                    src: "/ClaudeAcademy_AI_Capabilities.png",
+                    alt: "Claude Academy - AI Capabilities and Limitations Course Completion Badge",
+                  },
+                ]}
+                title={currentContent.aiCert_aiCapabilities_title}
+                desc={currentContent.aiCert_aiCapabilities_desc}
+                meta={[
+                  `${currentContent.aiCert_issuer}: Claude Academy`,
+                  `${currentContent.aiCert_issuedAt}: 2026-08-27`,
+                ]}
+              />
             </div>
+          </div>
 
-            {/* Encode Certificate NFT */}
-            <div className="flex flex-col md:flex-row items-center gap-20 mb-10">
-              <div className="flex-shrink-0">
-                {/* 修改：添加点击事件 */}
-                <div
-                  className="cursor-pointer hover:scale-105 transition-transform duration-200"
-                  onClick={() =>
-                    setSelectedImage(
-                      "https://i2.seadn.io/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/8516d699437d9155e2639696991b9b/da8516d699437d9155e2639696991b9b.jpeg?w=1000",
-                    )
-                  }
-                >
-                  <img
-                    src="https://i2.seadn.io/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/8516d699437d9155e2639696991b9b/da8516d699437d9155e2639696991b9b.jpeg?w=1000"
-                    alt="Web3 NFT"
-                    className="w-48 h-48 rounded-lg object-cover border-2 border-amber-400 shadow-sm"
-                  />
-                </div>
-              </div>
+          {/* ---------- NFT 证书 ---------- */}
+          <div>
+            <h3 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+              <span className="w-1 h-4 bg-blue-400 rounded-full inline-block" />
+              {currentContent.nftCert_group}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <ShowcaseCard
+                onPreview={setSelectedImage}
+                images={[
+                  {
+                    src: "/AlchemyU_Certificate.png",
+                    alt: "Alchemy University EVM Chain Certification",
+                  },
+                  {
+                    src: "/AlchemyU_NFT.webp",
+                    alt: "Alchemy University EVM Chain Certification NFT",
+                  },
+                ]}
+                title={currentContent.nft_alchemyU_title}
+                desc={currentContent.nft_alchemyU_desc}
+                links={[
+                  {
+                    href: "https://opensea.io/item/shape/0xcbe9500ef4f760d05d70381ccdf0169470b137de/23",
+                    label: currentContent.viewNFT,
+                    primary: true,
+                  },
+                  {
+                    href: "https://shapescan.xyz/token/0xCBE9500Ef4F760d05D70381cCDF0169470b137DE/instance/23",
+                    label: currentContent.transaction,
+                  },
+                ]}
+                meta={[
+                  `${currentContent.ownerAddress}: 0x34F3...3612`,
+                  `${currentContent.contractAddress}: 0xCBE95...37DE`,
+                  `${currentContent.network}: Shape Network`,
+                ]}
+              />
 
-              {/* 证书信息保持不变 */}
-              <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {currentContent.nft_encode_title}
-                </h3>
-                <p className="text-gray-600 mb-4 whitespace-pre-line">
-                  {currentContent.nft_encode_desc}
-                </p>
+              <ShowcaseCard
+                onPreview={setSelectedImage}
+                images={[
+                  {
+                    src: "https://i2.seadn.io/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/8516d699437d9155e2639696991b9b/da8516d699437d9155e2639696991b9b.jpeg?w=1000",
+                    alt: "Encode Graduate Certificate NFT",
+                  },
+                ]}
+                title={currentContent.nft_encode_title}
+                desc={currentContent.nft_encode_desc}
+                links={[
+                  {
+                    href: "https://opensea.io/item/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/1371",
+                    label: currentContent.viewNFT,
+                    primary: true,
+                  },
+                  {
+                    href: "https://polygonscan.com/nft/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/1371",
+                    label: currentContent.transaction,
+                  },
+                ]}
+                meta={[
+                  `${currentContent.ownerAddress}: 0x3a9E...10c1`,
+                  `${currentContent.contractAddress}: 0xdBf2...51F5`,
+                  `${currentContent.network}: Polygon Network`,
+                ]}
+              />
 
-                {/* 交互按钮保持不变 */}
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href="https://opensea.io/item/polygon/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/1371"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.viewNFT}</span>
-                  </a>
-                  <a
-                    href="https://polygonscan.com/nft/0xdbf2138593aec61d55d86e80b8ed86d7b9ba51f5/1371"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.transaction}</span>
-                  </a>
-                </div>
-
-                {/* 链上信息保持不变 */}
-                <div className="mt-4 text-sm text-gray-500">
-                  <p>{currentContent.ownerAddress}: 0x3a9E...10c1</p>
-                  <p>{currentContent.contractAddress}: 0xdBf2...51F5</p>
-                  <p>{currentContent.network}: Polygon Network</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Ten Years Of Ethereum NFT */}
-            <div className="flex flex-col md:flex-row items-center gap-20">
-              <div className="flex-shrink-0">
-                {/* 修改：添加点击事件 */}
-                <div
-                  className="cursor-pointer hover:scale-105 transition-transform duration-200"
-                  onClick={() =>
-                    setSelectedImage(
-                      "https://i2.seadn.io/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/8497cf59a89f826df103db2bae50d4/3f8497cf59a89f826df103db2bae50d4.png?w=350",
-                    )
-                  }
-                >
-                  <img
-                    src="https://i2.seadn.io/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/8497cf59a89f826df103db2bae50d4/3f8497cf59a89f826df103db2bae50d4.png?w=350"
-                    alt="Web3 NFT"
-                    className="w-48 h-48 rounded-lg object-cover border-2 border-amber-400 shadow-sm"
-                  />
-                </div>
-              </div>
-
-              {/* 证书信息保持不变 */}
-              <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {currentContent.nft_10years_title}
-                </h3>
-                <p className="text-gray-600 mb-4 whitespace-pre-line">
-                  {currentContent.nft_10years_desc}
-                </p>
-
-                {/* 交互按钮保持不变 */}
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href="https://opensea.io/item/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/602055"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.viewNFT}</span>
-                  </a>
-                  <a
-                    href="https://etherscan.io/tx/0x6480ff81bc14a6bc1ebfec07b4640eac839789b8636057b9189388cddc2c0fa7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <span>{currentContent.transaction}</span>
-                  </a>
-                </div>
-
-                {/* 链上信息保持不变 */}
-                <div className="mt-4 text-sm text-gray-500">
-                  <p>{currentContent.ownerAddress}: 0x3a9E...10c1</p>
-                  <p>{currentContent.contractAddress}: 0x26D8...B0ae</p>
-                  <p>{currentContent.network}: Ethereum Mainnet</p>
-                </div>
-              </div>
+              <ShowcaseCard
+                onPreview={setSelectedImage}
+                images={[
+                  {
+                    src: "https://i2.seadn.io/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/8497cf59a89f826df103db2bae50d4/3f8497cf59a89f826df103db2bae50d4.png?w=1000",
+                    alt: "Ten Years Of Ethereum NFT",
+                  },
+                ]}
+                title={currentContent.nft_10years_title}
+                desc={currentContent.nft_10years_desc}
+                links={[
+                  {
+                    href: "https://opensea.io/item/ethereum/0x26d85a13212433fe6a8381969c2b0db390a0b0ae/602055",
+                    label: currentContent.viewNFT,
+                    primary: true,
+                  },
+                  {
+                    href: "https://etherscan.io/tx/0x6480ff81bc14a6bc1ebfec07b4640eac839789b8636057b9189388cddc2c0fa7",
+                    label: currentContent.transaction,
+                  },
+                ]}
+                meta={[
+                  `${currentContent.ownerAddress}: 0x3a9E...10c1`,
+                  `${currentContent.contractAddress}: 0x26D8...B0ae`,
+                  `${currentContent.network}: Ethereum Mainnet`,
+                ]}
+              />
             </div>
           </div>
         </section>
 
         <section className="mb-16">
-          <h3 className="text-2xl font-semibold mb-6 text-center">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
             {currentContent.projects}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_firstra_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_firstra_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://firstra.vercel.app/"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-                <a
-                  href="https://apps.apple.com/app/id6773582786"
-                  className="text-blue-600 hover:underline"
-                >
-                  App Store
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_nitchugakuin_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_nitchugakuin_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://nitchu-gakuin-collections-frontend.vercel.app/"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-                <a
-                  href="https://github.com/mokaiko/nitchu-gakuin-collections"
-                  className="text-blue-600 hover:underline"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://opensea.io/collection/0x9d291c7a50a3bf0980e732890177fd4e0998e13a"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewNFT}
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_volcano_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_volcano_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://github.com/mokaiko/volcano-nft"
-                  className="text-blue-600 hover:underline"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://testnet.rarible.com/collection/0x37d272B8d4f844c29eB05C5ABC8271E8f22cFeA3/activity"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewNFT}
-                </a>
-                <a
-                  href="https://youtu.be/g_ULDhqWbtY"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewIntrodactionVideo}
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_apollo_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_apollo_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://github.com/0xApolloCrypto"
-                  className="text-blue-600 hover:underline"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="https://andromeda-explorer.metis.io/address/0xC09d94b59705863174A09CC38506EADcC76C086b/contracts"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_hashtag_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_hashtag_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://social-media-block-explorer.vercel.app/"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-                <a
-                  href="https://youtu.be/b9cp6FqVDuc?si=rXhOVy5ENXnVQ6sk"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewIntrodactionVideo}
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_cryptotrends_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_cryptotrends_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://crypto-trends-indicators.vercel.app/index.html"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h4 className="text-xl font-medium mb-2">
-                {currentContent.project_chinese_restaurant_in_tokyo_title}
-              </h4>
-              <p className="text-gray-600 mb-4 whitespace-pre-line">
-                {currentContent.project_chinese_restaurant_in_tokyo_desc}
-              </p>
-              <div className="space-x-6">
-                {" "}
-                {/* 添加水平间距 */}
-                <a
-                  href="https://chinese-restaurants-in-tokyo.vercel.app/"
-                  className="text-blue-600 hover:underline"
-                >
-                  {currentContent.viewProject}
-                </a>
-              </div>
-            </div>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* 大学院入試対策 */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-nyushi.webp",
+                  alt: "Graduate Entrance Exam Prep - AI study platform",
+                },
+              ]}
+              title={currentContent.project_nyushi_title}
+              desc={currentContent.project_nyushi_desc}
+              links={[
+                {
+                  href: "https://nyushi-taisaku.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+              ]}
+            />
+
+            {/* Firstra */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-firstra.webp",
+                  alt: "Firstra - learning and task management app",
+                },
+              ]}
+              title={currentContent.project_firstra_title}
+              desc={currentContent.project_firstra_desc}
+              links={[
+                {
+                  href: "https://firstra.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+                {
+                  href: "https://apps.apple.com/app/id6773582786",
+                  label: "App Store",
+                },
+              ]}
+            />
+
+            {/* 日中学院デジタルコレクション */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-nitchu-gakuin.webp",
+                  alt: "Nitchu Gakuin Digital Collections",
+                },
+              ]}
+              title={currentContent.project_nitchugakuin_title}
+              desc={currentContent.project_nitchugakuin_desc}
+              links={[
+                {
+                  href: "https://nitchu-gakuin-collections-frontend.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+                {
+                  href: "https://github.com/mokaiko/nitchu-gakuin-collections",
+                  label: "GitHub",
+                },
+                {
+                  href: "https://opensea.io/collection/0x9d291c7a50a3bf0980e732890177fd4e0998e13a",
+                  label: currentContent.viewNFT,
+                },
+              ]}
+            />
+
+            {/* 火山 NFT */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-volcano.svg",
+                  alt: "Volcano NFT - on-chain generative SVG",
+                },
+              ]}
+              title={currentContent.project_volcano_title}
+              desc={currentContent.project_volcano_desc}
+              links={[
+                {
+                  href: "https://github.com/mokaiko/volcano-nft",
+                  label: "GitHub",
+                  primary: true,
+                },
+                {
+                  href: "https://testnet.rarible.com/collection/0x37d272B8d4f844c29eB05C5ABC8271E8f22cFeA3/activity",
+                  label: currentContent.viewNFT,
+                },
+                {
+                  href: "https://youtu.be/g_ULDhqWbtY",
+                  label: currentContent.viewIntrodactionVideo,
+                },
+              ]}
+            />
+
+            {/* Apollo Protocol */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-apollo.webp",
+                  alt: "Apollo Protocol",
+                },
+              ]}
+              title={currentContent.project_apollo_title}
+              desc={currentContent.project_apollo_desc}
+              links={[
+                {
+                  href: "https://github.com/0xApolloCrypto",
+                  label: "GitHub",
+                  primary: true,
+                },
+                {
+                  href: "https://andromeda-explorer.metis.io/address/0xC09d94b59705863174A09CC38506EADcC76C086b/contracts",
+                  label: currentContent.viewProject,
+                },
+              ]}
+            />
+
+            {/* HashTag */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-hashtag.webp",
+                  alt: "HashTag - block explorer extension",
+                },
+              ]}
+              title={currentContent.project_hashtag_title}
+              desc={currentContent.project_hashtag_desc}
+              links={[
+                {
+                  href: "https://social-media-block-explorer.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+                {
+                  href: "https://youtu.be/b9cp6FqVDuc?si=rXhOVy5ENXnVQ6sk",
+                  label: currentContent.viewIntrodactionVideo,
+                },
+              ]}
+            />
+
+            {/* CryptoTrends 指標 */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-cryptotrends.webp",
+                  alt: "CryptoTrends Indicators",
+                },
+              ]}
+              title={currentContent.project_cryptotrends_title}
+              desc={currentContent.project_cryptotrends_desc}
+              links={[
+                {
+                  href: "https://crypto-trends-indicators.vercel.app/index.html",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+              ]}
+            />
+
+            {/* ぽーたぶる中国料理 */}
+            <ShowcaseCard
+              accent="slate"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-tokyo-chinese.webp",
+                  alt: "Tokyo Delicious Chinese Cuisine Complete Guide",
+                },
+              ]}
+              title={currentContent.project_chinese_restaurant_in_tokyo_title}
+              desc={currentContent.project_chinese_restaurant_in_tokyo_desc}
+              links={[
+                {
+                  href: "https://chinese-restaurants-in-tokyo.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+              ]}
+            />
           </div>
         </section>
 
