@@ -65,6 +65,21 @@ const certAccent = {
     media: "bg-slate-50/70 border-slate-100",
     img: "border-slate-200",
   },
+  rose: {
+    card: "border-rose-100",
+    media: "bg-rose-50/70 border-rose-100",
+    img: "border-rose-200",
+  },
+  emerald: {
+    card: "border-emerald-100",
+    media: "bg-emerald-50/70 border-emerald-100",
+    img: "border-emerald-200",
+  },
+  violet: {
+    card: "border-violet-100",
+    media: "bg-violet-50/70 border-violet-100",
+    img: "border-violet-200",
+  },
 };
 
 // 通用展示卡片：左图右文。证书和项目共用同一套版式。
@@ -75,6 +90,7 @@ function ShowcaseCard({
   desc,
   links = [],
   meta = [],
+  badge,
   accent = "blue",
   onPreview,
 }) {
@@ -132,8 +148,13 @@ function ShowcaseCard({
         </h4>
         <CardDesc text={desc} />
 
-        {links.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-3">
+        {(badge || links.length > 0) && (
+          <div className="flex flex-wrap items-center gap-1.5 mt-3">
+            {badge && (
+              <span className="text-sm bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-md">
+                {badge}
+              </span>
+            )}
             {links.map((link) => (
               <a
                 key={link.href}
@@ -185,6 +206,9 @@ export default function Home() {
       network: "Blockchain Network",
       about: "About Me",
       projects: "Projects",
+      project_group_edu: "Education / Productivity",
+      project_group_life: "Life / Tools",
+      project_group_web3: "Blockchain / Web3",
       viewIntrodactionVideo: "View Introduction Video",
       viewProject: "View Project",
       aboutText:
@@ -223,6 +247,17 @@ This course maps out the boundaries of AI:
       aiCert_issuedAt: "Issued",
       aiCert_group: "AI Certificates",
       nftCert_group: "NFT Certificates",
+      project_integral_title: "Integral Practice",
+      project_integral_desc: `An integral calculus drill app written by a cram-school instructor — every problem comes with a solution-strategy note.
+・Problems from the basics through to applied level, building up step by step
+・Each problem carries a "hint" note explaining why that method is the one to use
+・Three-level structure: chapter list → contents → problem / solution
+・Progress bar and check marks show how far you have got at a glance
+・A "needs review" mode, filterable by sub-question or by problem set
+・Formulas rendered with native LaTeX — no images — following font size and dark mode
+・Phone and tablet layouts; no server, no account, no in-app purchases, one-time purchase
+・5 languages: JA / EN / ZH-CN / ZH-HANT / KO`,
+      project_integral_badge: "In review on the App Store",
       nft_alchemyU_title: "Alchemy University EVM Chain Certification",
       nft_alchemyU_desc: `This NFT certifies that the holder has successfully completed the Alchemy University EVM Chain Certification, demonstrating proficiency in:
       ✓ EVM architecture and fundamentals
@@ -294,7 +329,8 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ・Pro features: custom themes, cover images, chart backgrounds, premium sounds, custom avatars, and more
 ・Available as a web app and native iOS app`,
       project_chinese_restaurant_in_tokyo_desc: `A guide to delicious Chinese restaurants in Tokyo for Chinese people living in Japan and Japanese people who love authentic Chinese food.
-        Built with Next.js and Tailwind CSS, featuring a responsive design.`,
+        Built with Next.js and Tailwind CSS, featuring a responsive design.
+・4 languages: JA / ZH-CN / ZH-TW / EN`,
     },
     zh: {
       title: "Mo Kaiko 的个人网站",
@@ -311,6 +347,9 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       network: "区块链网络",
       about: "关于我",
       projects: "项目展示",
+      project_group_edu: "教育 / 效率",
+      project_group_life: "生活 / 工具",
+      project_group_web3: "区块链 / Web3",
       aboutText:
         "专注于 LLM 应用产品与自主 Agent 开发的 AI 应用工程师。同时也是专注于 Web3、NFT、智能合约开发的区块链工程师。",
       aiSkills: "AI 技能",
@@ -349,6 +388,17 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       aiCert_issuedAt: "颁发时间",
       aiCert_group: "AI 证书",
       nftCert_group: "NFT 证书",
+      project_integral_title: "积分实战练习",
+      project_integral_desc: `积分演练习题集 App，由私塾讲师编写，每一道题都附有解题思路。
+・收录从基础到应用水平的题目，可循序渐进地提升
+・每题标注《発想》，讲清「为什么要用这个方法」
+・三级结构：章一览 → 内容一览 → 题目 / 解答
+・进度条与对勾标记，完成度一目了然
+・「需复习」模式，可按小题或题组筛选
+・公式用原生 LaTeX 渲染，不依赖图片，自动适配字号与深色模式
+・手机 / 平板自适应；无服务器、无账号、无内购，一次买断
+・支持 5 种语言：日 / 英 / 简中 / 繁中 / 韩`,
+      project_integral_badge: "App Store 审核中",
       nft_alchemyU_title: "Alchemy University EVM Chain 认证",
       nft_alchemyU_desc: `此 NFT 证明持有者已成功完成 Alchemy University EVM Chain 开发者认证，展示了以下方面的熟练掌握：
       ✓ EVM 架构与基础
@@ -419,7 +469,8 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ・Pro 功能：自定义主题、封面图片、图表背景、高级提示音、自定义头像等
 ・提供 Web 应用及原生 iOS App`,
       project_chinese_restaurant_in_tokyo_desc: `面向在日华人及热爱正宗中餐的日本人，提供东京美味中餐厅指南。
-        使用 Next.js 和 Tailwind CSS 构建，采用响应式设计。`,
+        使用 Next.js 和 Tailwind CSS 构建，采用响应式设计。
+・支持 4 种语言：日 / 简中 / 繁中 / 英`,
     },
     ja: {
       title: "Mo Kaiko の個人サイト",
@@ -437,6 +488,9 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       network: "ブロックチェーンネットワーク",
       about: "自己紹介",
       projects: "プロジェクト",
+      project_group_edu: "教育 / 効率化",
+      project_group_life: "生活 / ツール",
+      project_group_web3: "ブロックチェーン / Web3",
       aboutText:
         "LLM を活用したプロダクトと自律エージェント開発に注力する AI アプリケーションエンジニア。また、Web3・NFT・スマートコントラクト開発に特化したブロックチェーンエンジニアでもある。",
       aiSkills: "AI スキル",
@@ -475,6 +529,17 @@ AI の能力の境界と活用の指針を体系的に整理：
       aiCert_issuedAt: "発行日",
       aiCert_group: "AI 証明書",
       nftCert_group: "NFT 証明書",
+      project_integral_title: "積分実践演習",
+      project_integral_desc: `積分演習アプリ。塾講師が作成し、全ての問題に「発想」を付けている。
+・基礎から応用まで幅広いレベルの問題を収録し、段階的に実力を伸ばせる
+・全問に《発想》を掲載し、「なぜその方法を使うのか」から解説
+・章一覧 → 内容一覧 → 問題 / 解答 の3段階構成
+・進捗バーとチェックで、どこまで進んだかが一目でわかる
+・「要復習」モード。小問単位 / セット単位で絞り込み可能
+・数式はネイティブ LaTeX レンダリング。画像に依存せず、文字サイズ・ダークモードに自動追従
+・スマホ / タブレット対応。サーバーなし・アカウントなし・課金なしの買い切り
+・5 言語対応：日本語 / 英語 / 簡体字中国語 / 繁体字中国語 / 韓国語`,
+      project_integral_badge: "App Store 審査中",
       nft_alchemyU_title: "Alchemy University EVM Chain 認定",
       nft_alchemyU_desc: `この NFT は、保有者が Alchemy University EVM Chain 開発者認定を無事に修了し、以下の分野での習熟度を示していることを証明するものである：
       ✓ EVM のアーキテクチャと基礎
@@ -545,7 +610,8 @@ AI の能力の境界と活用の指針を体系的に整理：
 ・Pro機能：カスタムテーマ、カバー画像、チャート背景、プレミアムサウンド、カスタムアバターなど
 ・WebアプリとネイティブiOSアプリとして利用可能`,
       project_chinese_restaurant_in_tokyo_desc: `在日中国人および本格中華を愛する日本人に向けた、東京の美味しい中国料理店ガイド。
-        Next.js と Tailwind CSS を使用して構築されており、レスポンシブデザインを採用している。`,
+        Next.js と Tailwind CSS を使用して構築されており、レスポンシブデザインを採用している。
+・4 言語対応：日本語 / 簡体字中国語 / 繁体字中国語 / 英語`,
     },
   };
 
@@ -975,10 +1041,17 @@ AI の能力の境界と活用の指針を体系的に整理：
           <h2 className="text-2xl font-bold mb-6 text-gray-800">
             {currentContent.projects}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          {/* ---------- 教育 / 効率化 ---------- */}
+          <div className="mb-10">
+            <h3 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+              <span className="w-1 h-4 bg-rose-400 rounded-full inline-block" />
+              {currentContent.project_group_edu}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* 大学院入試対策 */}
             <ShowcaseCard
-              accent="slate"
+              accent="rose"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -996,10 +1069,9 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
             {/* Firstra */}
             <ShowcaseCard
-              accent="slate"
+              accent="rose"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1008,8 +1080,7 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
               title={currentContent.project_firstra_title}
-              desc={currentContent.project_firstra_desc}
-              links={[
+              desc={currentContent.project_firstra_desc}              links={[
                 {
                   href: "https://firstra.vercel.app/",
                   label: currentContent.viewProject,
@@ -1021,10 +1092,63 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
+            {/* 積分実践演習 */}
+            <ShowcaseCard
+              accent="rose"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-integral-practice.webp",
+                  alt: "Integral Practice - integral calculus drill app",
+                },
+              ]}
+              title={currentContent.project_integral_title}
+              desc={currentContent.project_integral_desc}
+              badge={currentContent.project_integral_badge}
+            />
+            </div>
+          </div>
 
+          {/* ---------- 生活 / ツール ---------- */}
+          <div className="mb-10">
+            <h3 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+              <span className="w-1 h-4 bg-emerald-400 rounded-full inline-block" />
+              {currentContent.project_group_life}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* ぽーたぶる中国料理 */}
+            <ShowcaseCard
+              accent="emerald"
+              onPreview={setSelectedImage}
+              images={[
+                {
+                  src: "/project-tokyo-chinese.webp",
+                  alt: "Tokyo Delicious Chinese Cuisine Complete Guide",
+                },
+              ]}
+              title={currentContent.project_chinese_restaurant_in_tokyo_title}
+              desc={currentContent.project_chinese_restaurant_in_tokyo_desc}
+              links={[
+                {
+                  href: "https://chinese-restaurants-in-tokyo.vercel.app/",
+                  label: currentContent.viewProject,
+                  primary: true,
+                },
+              ]}
+            />
+            </div>
+          </div>
+
+          {/* ---------- ブロックチェーン / Web3 ---------- */}
+          <div className="">
+            <h3 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+              <span className="w-1 h-4 bg-violet-400 rounded-full inline-block" />
+              {currentContent.project_group_web3}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* 日中学院デジタルコレクション */}
             <ShowcaseCard
-              accent="slate"
+              accent="violet"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1050,10 +1174,9 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
             {/* 火山 NFT */}
             <ShowcaseCard
-              accent="slate"
+              accent="violet"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1079,10 +1202,9 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
             {/* Apollo Protocol */}
             <ShowcaseCard
-              accent="slate"
+              accent="violet"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1104,10 +1226,9 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
             {/* HashTag */}
             <ShowcaseCard
-              accent="slate"
+              accent="violet"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1129,10 +1250,9 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
             {/* CryptoTrends 指標 */}
             <ShowcaseCard
-              accent="slate"
+              accent="violet"
               onPreview={setSelectedImage}
               images={[
                 {
@@ -1150,27 +1270,7 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
             />
-
-            {/* ぽーたぶる中国料理 */}
-            <ShowcaseCard
-              accent="slate"
-              onPreview={setSelectedImage}
-              images={[
-                {
-                  src: "/project-tokyo-chinese.webp",
-                  alt: "Tokyo Delicious Chinese Cuisine Complete Guide",
-                },
-              ]}
-              title={currentContent.project_chinese_restaurant_in_tokyo_title}
-              desc={currentContent.project_chinese_restaurant_in_tokyo_desc}
-              links={[
-                {
-                  href: "https://chinese-restaurants-in-tokyo.vercel.app/",
-                  label: currentContent.viewProject,
-                  primary: true,
-                },
-              ]}
-            />
+            </div>
           </div>
         </section>
 
