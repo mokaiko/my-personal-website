@@ -257,7 +257,6 @@ This course maps out the boundaries of AI:
 ・Formulas rendered with native LaTeX — no images — following font size and dark mode
 ・Phone and tablet layouts; no server, no account, no in-app purchases, one-time purchase
 ・5 languages: JA / EN / ZH-CN / ZH-HANT / KO`,
-      project_integral_badge: "In review on the App Store",
       nft_alchemyU_title: "Alchemy University EVM Chain Certification",
       nft_alchemyU_desc: `This NFT certifies that the holder has successfully completed the Alchemy University EVM Chain Certification, demonstrating proficiency in:
       ✓ EVM architecture and fundamentals
@@ -398,7 +397,6 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
 ・公式用原生 LaTeX 渲染，不依赖图片，自动适配字号与深色模式
 ・手机 / 平板自适应；无服务器、无账号、无内购，一次买断
 ・支持 5 种语言：日 / 英 / 简中 / 繁中 / 韩`,
-      project_integral_badge: "App Store 审核中",
       nft_alchemyU_title: "Alchemy University EVM Chain 认证",
       nft_alchemyU_desc: `此 NFT 证明持有者已成功完成 Alchemy University EVM Chain 开发者认证，展示了以下方面的熟练掌握：
       ✓ EVM 架构与基础
@@ -539,7 +537,6 @@ AI の能力の境界と活用の指針を体系的に整理：
 ・数式はネイティブ LaTeX レンダリング。画像に依存せず、文字サイズ・ダークモードに自動追従
 ・スマホ / タブレット対応。サーバーなし・アカウントなし・課金なしの買い切り
 ・5 言語対応：日本語 / 英語 / 簡体字中国語 / 繁体字中国語 / 韓国語`,
-      project_integral_badge: "App Store 審査中",
       nft_alchemyU_title: "Alchemy University EVM Chain 認定",
       nft_alchemyU_desc: `この NFT は、保有者が Alchemy University EVM Chain 開発者認定を無事に修了し、以下の分野での習熟度を示していることを証明するものである：
       ✓ EVM のアーキテクチャと基礎
@@ -1104,7 +1101,13 @@ AI の能力の境界と活用の指針を体系的に整理：
               ]}
               title={currentContent.project_integral_title}
               desc={currentContent.project_integral_desc}
-              badge={currentContent.project_integral_badge}
+              links={[
+                {
+                  href: "https://apps.apple.com/jp/app/%E7%A9%8D%E5%88%86%E5%AE%9F%E8%B7%B5%E6%BC%94%E7%BF%92/id6818971016",
+                  label: "App Store",
+                  primary: true,
+                },
+              ]}
             />
             </div>
           </div>
