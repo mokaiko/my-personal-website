@@ -211,6 +211,7 @@ export default function Home() {
       project_group_web3: "Blockchain / Web3",
       viewIntrodactionVideo: "View Introduction Video",
       viewProject: "View Project",
+      viewWebsite: "View Website",
       aboutText:
         "AI application engineer focused on LLM-powered products and autonomous agents. Blockchain engineer specializing in Web3, NFT and smart contract development.",
       aiSkills: "AI Skills",
@@ -369,6 +370,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "查看介绍视频",
       viewProject: "查看项目",
+      viewWebsite: "查看网站",
       aiCert_claudecode_title: "Claude Code 101 认证",
       aiCert_claudecode_desc: `Claude Academy 课程完成认证。
 该课程系统学习 Claude Code 的核心用法：
@@ -509,6 +511,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       aiSkills_ml_tags: ["Machine Learning"],
       viewIntrodactionVideo: "紹介ビデオを見る",
       viewProject: "プロジェクトを見る",
+      viewWebsite: "ウェブサイトを見る",
       aiCert_claudecode_title: "Claude Code 101 認定",
       aiCert_claudecode_desc: `Claude Academy コース修了バッジ。
 Claude Code の核心を体系的に学習：
@@ -1077,15 +1080,16 @@ AI の能力の境界と活用の指針を体系的に整理：
                 },
               ]}
               title={currentContent.project_firstra_title}
-              desc={currentContent.project_firstra_desc}              links={[
+              desc={currentContent.project_firstra_desc}
+              links={[
                 {
-                  href: "https://firstra.vercel.app/",
-                  label: currentContent.viewProject,
+                  href: "https://apps.apple.com/jp/app/firstra/id6773582786",
+                  label: "App Store",
                   primary: true,
                 },
                 {
-                  href: "https://apps.apple.com/app/id6773582786",
-                  label: "App Store",
+                  href: "https://firstra.vercel.app/",
+                  label: currentContent.viewWebsite,
                 },
               ]}
             />
