@@ -1064,7 +1064,7 @@ AI の能力の境界と活用の指針を体系的に整理：
               links={[
                 {
                   href: "https://nyushi-taisaku.vercel.app/",
-                  label: currentContent.viewProject,
+                  label: currentContent.viewWebsite,
                   primary: true,
                 },
               ]}
@@ -1138,7 +1138,7 @@ AI の能力の境界と活用の指針を体系的に整理：
               links={[
                 {
                   href: "https://chinese-restaurants-in-tokyo.vercel.app/",
-                  label: currentContent.viewProject,
+                  label: currentContent.viewWebsite,
                   primary: true,
                 },
               ]}
@@ -1168,7 +1168,7 @@ AI の能力の境界と活用の指針を体系的に整理：
               links={[
                 {
                   href: "https://nitchu-gakuin-collections-frontend.vercel.app/",
-                  label: currentContent.viewProject,
+                  label: currentContent.viewWebsite,
                   primary: true,
                 },
                 {
@@ -1248,7 +1248,7 @@ AI の能力の境界と活用の指針を体系的に整理：
               links={[
                 {
                   href: "https://social-media-block-explorer.vercel.app/",
-                  label: currentContent.viewProject,
+                  label: currentContent.viewWebsite,
                   primary: true,
                 },
                 {
@@ -1272,7 +1272,7 @@ AI の能力の境界と活用の指針を体系的に整理：
               links={[
                 {
                   href: "https://crypto-trends-indicators.vercel.app/index.html",
-                  label: currentContent.viewProject,
+                  label: currentContent.viewWebsite,
                   primary: true,
                 },
               ]}
