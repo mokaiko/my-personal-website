@@ -249,7 +249,7 @@ This course maps out the boundaries of AI:
       aiCert_group: "AI Certificates",
       nftCert_group: "NFT Certificates",
       project_integral_title: "Integral Practice",
-      project_integral_desc: `An integral calculus drill app written by a cram-school instructor (iOS / Android).
+      project_integral_desc: `An integral calculus drill app (iOS / Android) with problems written by a cram-school instructor.
 ・Problems from the basics through to applied level, building up step by step
 ・Each problem carries a "hint" note explaining why that method is the one to use
 ・Three-level structure: chapter list → contents → problem / solution
@@ -390,7 +390,7 @@ This NFT bears witness to the holder's journey of growth alongside Ethereum, ser
       aiCert_group: "AI 证书",
       nftCert_group: "NFT 证书",
       project_integral_title: "积分实战练习",
-      project_integral_desc: `由私塾讲师编写的积分演练习题集 App（iOS / Android）。
+      project_integral_desc: `积分演练习题集 App（iOS / Android），题目由私塾讲师编写。
 ・收录从基础到应用水平的题目，可循序渐进地提升
 ・每题标注《発想》，讲清「为什么要用这个方法」
 ・三级结构：章一览 → 内容一览 → 题目 / 解答
@@ -531,7 +531,7 @@ AI の能力の境界と活用の指針を体系的に整理：
       aiCert_group: "AI 証明書",
       nftCert_group: "NFT 証明書",
       project_integral_title: "積分実践演習",
-      project_integral_desc: `塾講師が作成した積分演習アプリ（iOS / Android）。
+      project_integral_desc: `塾講師が作成した問題を収録した積分演習アプリ（iOS / Android）。
 ・基礎から応用まで幅広いレベルの問題を収録し、段階的に実力を伸ばせる
 ・全問に《発想》を掲載し、「なぜその方法を使うのか」から解説
 ・章一覧 → 内容一覧 → 問題 / 解答 の3段階構成
